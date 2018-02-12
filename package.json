@@ -1,0 +1,32 @@
+{
+  "name": "koa-captcha-v2",
+  "version": "0.0.1",
+  "description": "Koa captcha",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./sample/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiewulong/koa-captcha.git"
+  },
+  "keywords": [
+    "koa",
+    "captcha"
+  ],
+  "author": "xiewulong <xiewulong@vip.qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xiewulong/koa-captcha/issues"
+  },
+  "homepage": "https://github.com/xiewulong/koa-captcha#readme",
+  "dependencies": {
+    "canvas": "^1.6.9"
+  },
+  "devDependencies": {
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.8.1"
+  }
+}
