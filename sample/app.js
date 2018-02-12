@@ -20,8 +20,8 @@ app
   .use(session(app))
   .use(bodyparser())
   .use(captcha({
-    // rotate: 30,               // Rotation amplitude, default: 30, then the angle range is -30 to 30
     // background: '#fff',       // Background color, default: white
+    // background_image: false,  // Background image, default: false
     // case_sensitivity: false,  // Case sensitivity, default: false
     // char_pool: '0123456789',  // Char pool, default: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     // char_length: 6,           // Char length, default: 6
@@ -30,6 +30,7 @@ app
     // font_size: '30px',        // Font size, default: 30px
     // height: 60,               // Height, default: 60
     // prefix: 'captcha_',       // Session key prefix, default: `captcha_${key}`
+    // rotate: 30,               // Rotation amplitude, default: 30, then the angle range is -30 to 30
     // timeout_in: 60 * 1000,    // Timeout, default: 1 minute
     // type: 'character',        // Captcha type, default: random character
     // width: 160,               // Width, default: 160
