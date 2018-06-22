@@ -1,6 +1,6 @@
 {
   "name": "koa-captcha-v2",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Koa captcha",
   "main": "index.js",
   "scripts": {
@@ -21,12 +21,11 @@
   },
   "homepage": "https://github.com/xiewulong/koa-captcha#readme",
   "dependencies": {
-    "canvas": "^1.6.9"
+    "canvas": "^2.0.0-alpha.12"
   },
   "devDependencies": {
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
-    "koa-router": "^7.4.0",
     "koa-session": "^5.8.1"
   }
 }

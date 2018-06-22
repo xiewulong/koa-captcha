@@ -6,17 +6,21 @@
  */
 'use strict';
 
+const path = require('path');
 const Canvas = require('canvas');
 
 const DEFAULT_OPTIONS = {
   background: '#fff',       // Background color, default: white
-  background_image: false,  // Background image, default: false
+  background_image: null,   // Background image, default: null
   case_sensitivity: false,  // Case sensitivity, default: false
   char_pool: '0123456789',  // Char pool, like: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789, default: 0123456789
   char_length: 6,           // Char length, default: 6
   color: '#000',            // Color, default: black
-  font: 'Arial',            // Font family, default arial
+  font_family: 'SpicyRice', // Font family, default SpicyRice
   font_size: '30px',        // Font size, default: 30px
+  font_style: 'normal',     // Font style, default: normal
+  font_weight: 'normal',    // Font weight, default: normal
+  fonts: {},                // Custom font files path
   height: 60,               // Height, default: 60
   prefix: 'captcha_',       // Session key prefix, default: `captcha_${key}`
   rotate: 30,               // Rotation amplitude, default: 30, then the angle range is -30 to 30
@@ -26,6 +30,12 @@ const DEFAULT_OPTIONS = {
 };
 
 const ACTIVE_TYPES = ['character'];
+
+Canvas.registerFont(path.join(__dirname, 'fonts', 'SpicyRice.ttf'), {
+  family: DEFAULT_OPTIONS.font_family,
+  style: DEFAULT_OPTIONS.font_style,
+  weight: DEFAULT_OPTIONS.font_weight,
+});
 
 class Captcha {
 
@@ -40,6 +50,8 @@ class Captcha {
     if(ACTIVE_TYPES.indexOf(this.options.type) < 0) {
       this.error = 'Invalid captcha type';
     }
+
+    this.register_fonts();
   }
 
   verify(key, code) {
@@ -81,8 +93,26 @@ class Captcha {
     return this._type;
   }
 
+  register_fonts() {
+    let families = Object.keys(this.options.fonts);
+    let len = families.length;
+    if(!len) {
+      return;
+    }
+
+    for(let font, family, i = 0; i < len; i++) {
+      family = families[i];
+      font = this.options.fonts[family];
+      Canvas.registerFont(font.file, {
+        family,
+        style: font.style,
+        weight: font.weight,
+      });
+    }
+  }
+
   draw_character() {
-    let canvas = new Canvas(this.options.width, this.options.height);
+    let canvas = new Canvas.createCanvas(this.options.width, this.options.height);
     let c = canvas.getContext('2d');
 
     if(this.options.background_image) {
@@ -91,7 +121,7 @@ class Captcha {
       c.drawImage(image, Math.random() * (image.width - canvas.width) + (canvas.width - image.width), Math.random() * (image.height - canvas.height) + (canvas.height - image.height));
     }
 
-    c.font = `${this.options.font_size} ${this.options.font}`;
+    c.font = `${this.options.font_style} ${this.options.font_weight} ${this.options.font_size} ${this.options.font_family}`;
     c.textAlign = 'center';
     c.textBaseline = 'middle';
     c.fillStyle = this.options.color;
