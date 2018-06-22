@@ -94,20 +94,15 @@ class Captcha {
   }
 
   register_fonts() {
-    let families = Object.keys(this.options.fonts);
-    let len = families.length;
+    let files = Object.keys(this.options.fonts);
+    let len = files.length;
     if(!len) {
       return;
     }
 
-    for(let font, family, i = 0; i < len; i++) {
-      family = families[i];
-      font = this.options.fonts[family];
-      Canvas.registerFont(font.file, {
-        family,
-        style: font.style,
-        weight: font.weight,
-      });
+    for(let file, i = 0; i < len; i++) {
+      file = files[i];
+      Canvas.registerFont(file, this.options.fonts[file]);
     }
   }
 

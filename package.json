@@ -1,6 +1,6 @@
 {
   "name": "koa-captcha-v2",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Koa captcha",
   "main": "index.js",
   "scripts": {
