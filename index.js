@@ -135,12 +135,11 @@ class Captcha {
     }
 
     let left = Math.random() * canvas.width * .1 + canvas.width * .2;
-    for(let angle, char, color, mt, r, colors = [], i = 0, len = this.code.length; i < len; i++) {
-      char = this.code[i];
-      angle = (Math.random() * this.options.rotate * 2 - this.options.rotate) * Math.PI / 180;
-
+    for(let angle, char, mt, r, colors = [], i = 0, len = this.code.length; i < len; i++) {
       c.save();
 
+      char = this.code[i];
+      angle = (Math.random() * this.options.rotate * 2 - this.options.rotate) * Math.PI / 180;
       if(this.options.color.length > 1) {
         if(!colors.length) {
           colors = [].concat(this.options.color);
