@@ -26,7 +26,7 @@ app
     // case_sensitivity: false,  // Case sensitivity, default: false
     // char_pool: '0123456789',  // Char pool, like: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789, default: 0123456789
     // char_length: 6,           // Char length, default: 6
-    // color: '#000',            // Color, default: black
+    // color: '#000',            // Color, String or Array, default: black
     // font_family: 'SpicyRice', // Font family, default SpicyRice
     // font_size: '30px',        // Font size, default: 30px
     // font_style: 'normal',     // Font style, default: normal

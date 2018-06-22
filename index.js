@@ -16,7 +16,7 @@ const DEFAULT_OPTIONS = {
   case_sensitivity: false,  // Case sensitivity, default: false
   char_pool: '0123456789',  // Char pool, like: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789, default: 0123456789
   char_length: 6,           // Char length, default: 6
-  color: '#000',            // Color, default: black
+  color: '#000',            // Color, String or Array, default: black
   font_family: 'SpicyRice', // Font family, default SpicyRice
   font_size: '30px',        // Font size, default: 30px
   font_style: 'normal',     // Font style, default: normal
@@ -52,6 +52,10 @@ class Captcha {
       this.error = 'Invalid captcha type';
     }
 
+    if(typeof this.options.color == 'string') {
+      this.options.color = [this.options.color];
+    }
+
     this.register_fonts();
   }
 
@@ -61,12 +65,17 @@ class Captcha {
     }
 
     let key_session = this.ctx.session[`${this.options.prefix}${key}`];
-    return !!key_session
-           && !!key_session.expired_at
-           && (+ new Date()) < key_session.expired_at
-           && !!key_session.code
-           && code == key_session.code
-           ;
+    if(!key_session || !key_session.code || !key_session.expired_at) {
+      return false;
+    }
+
+    let _code = key_session.code;
+    if(!this.options.case_sensitivity) {
+      code = code.toLowerCase();
+      _code = _code.toLowerCase();
+    }
+
+    return (+ new Date()) < key_session.expired_at && code == _code;
   }
 
   refresh(key, timeout_in = this.options.timeout_in) {
@@ -120,14 +129,25 @@ class Captcha {
     c.font = `${this.options.font_style} ${this.options.font_weight} ${this.options.font_size} ${this.options.font_family}`;
     c.textAlign = 'center';
     c.textBaseline = 'middle';
-    c.fillStyle = this.options.color;
+
+    if(this.options.color.length == 1) {
+      c.fillStyle = this.options.color[0];
+    }
 
     let left = Math.random() * canvas.width * .1 + canvas.width * .2;
-    for(let char, mt, r, angle, i = 0, len = this.code.length; i < len; i++) {
+    for(let angle, char, color, mt, r, colors = [], i = 0, len = this.code.length; i < len; i++) {
       char = this.code[i];
       angle = (Math.random() * this.options.rotate * 2 - this.options.rotate) * Math.PI / 180;
 
       c.save();
+
+      if(this.options.color.length > 1) {
+        if(!colors.length) {
+          colors = [].concat(this.options.color);
+        }
+        c.fillStyle = colors.splice(colors.length == 1 ? 0 : Math.floor(Math.random() * colors.length), 1)[0];
+      }
+
       c.transform(Math.cos(angle), Math.sin(angle), - Math.sin(angle), Math.cos(angle), left -= Math.random() * 2, canvas.height / 2);
       c.fillText(char, 0, 0);
       c.restore();
