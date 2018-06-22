@@ -39,7 +39,7 @@ app
     background: '#fff',       // Background color, default: white
     background_image: false,  // Background image, default: false
     case_sensitivity: false,  // Case sensitivity, default: false
-    char_pool: '0123456789',  // Char pool, default: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    char_pool: '0123456789',  // Char pool, like: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789, default: 0123456789
     char_length: 6,           // Char length, default: 6
     color: '#000',            // Color, default: black
     font: 'Arial',            // Font family, default arial
