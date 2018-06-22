@@ -135,18 +135,17 @@ class Captcha {
     }
 
     let left = Math.random() * canvas.width * .1 + canvas.width * .2;
-    for(let angle, char, mt, r, colors = [], i = 0, len = this.code.length; i < len; i++) {
-      c.save();
-
+    for(let angle, char, color, mt, colors = [], i = 0, len = this.code.length; i < len; i++) {
       char = this.code[i];
       angle = (Math.random() * this.options.rotate * 2 - this.options.rotate) * Math.PI / 180;
+
+      c.save();
       if(this.options.color.length > 1) {
         if(!colors.length) {
           colors = [].concat(this.options.color);
         }
         c.fillStyle = colors.splice(colors.length == 1 ? 0 : Math.floor(Math.random() * colors.length), 1)[0];
       }
-
       c.transform(Math.cos(angle), Math.sin(angle), - Math.sin(angle), Math.cos(angle), left -= Math.random() * 2, canvas.height / 2);
       c.fillText(char, 0, 0);
       c.restore();
