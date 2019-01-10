@@ -11,7 +11,7 @@ const path = require('path');
 const Canvas = require('canvas');
 
 const DEFAULT_OPTIONS = {
-  background: '#fff',       // Background color, default: white
+  background: undefined,    // Background color, default: undefined(transparent)
   background_image: null,   // Background image, default: null
   case_sensitivity: false,  // Case sensitivity, default: false
   char_pool: '0123456789',  // Char pool, like: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789, default: 0123456789
@@ -124,7 +124,7 @@ class Captcha {
       let image = new Canvas.Image;
       image.src = fs.readFileSync(this.options.background_image);
       c.drawImage(image, Math.random() * (image.width - canvas.width) + (canvas.width - image.width), Math.random() * (image.height - canvas.height) + (canvas.height - image.height));
-    }else if(this.options.background) {
+    } else if(this.options.background) {
       c.fillStyle = this.options.background;
       c.fillRect(0, 0, this.options.width, this.options.height);
     }

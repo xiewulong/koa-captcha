@@ -36,7 +36,7 @@ app
   .use(session(app))
   .use(bodyparser())
   .use(captcha({
-    background: '#fff',       // Background color, default: white
+    background: undefined,    // Background color, default: undefined(transparent)
     background_image: null,   // Background image, default: null
     case_sensitivity: false,  // Case sensitivity, default: false
     char_pool: '0123456789',  // Char pool, like: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789, default: 0123456789
