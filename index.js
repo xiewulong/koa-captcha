@@ -124,6 +124,9 @@ class Captcha {
       let image = new Canvas.Image;
       image.src = fs.readFileSync(this.options.background_image);
       c.drawImage(image, Math.random() * (image.width - canvas.width) + (canvas.width - image.width), Math.random() * (image.height - canvas.height) + (canvas.height - image.height));
+    }else if(this.options.background) {
+      c.fillStyle = this.options.background;
+      c.fillRect(0, 0, this.options.width, this.options.height);
     }
 
     c.font = `${this.options.font_style} ${this.options.font_weight} ${this.options.font_size} ${this.options.font_family}`;
